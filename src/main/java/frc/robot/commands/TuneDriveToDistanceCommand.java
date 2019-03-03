@@ -19,11 +19,11 @@ public class TuneDriveToDistanceCommand extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    double distance = SmartDashboard.getNumber("Distance Setpoint", 20.0);
+    double targetSetpoint = SmartDashboard.getNumber("Distance Setpoint", 160.0);
     double kP = SmartDashboard.getNumber("Distance P", 0);
     double kI = SmartDashboard.getNumber("Distance I", 0);
     double kD = SmartDashboard.getNumber("Distance D", 0);	  
-    DriveToDistanceCommand driveCmd=new DriveToDistanceCommand(distance, kP, kI, kD);
+    JevoisTurnPIDCommand driveCmd=new JevoisTurnPIDCommand(targetSetpoint, kP, kI, kD);
     driveCmd.start();
   }
 

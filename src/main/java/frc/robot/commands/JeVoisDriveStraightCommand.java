@@ -28,12 +28,16 @@ public class JeVoisDriveStraightCommand extends Command {
     double move = -Robot.oi.driveStick.getY();
     double turn = Robot.oi.driveStick.getTwist();
     if (Robot.jSubsystem.isTargetVisable()){
-     Robot.driveSubsystem.driveStraightJevois(.7, 0.025);
+      if(Robot.driveSubsystem.getDistance()>12){
+        Robot.driveSubsystem.driveStraightJevois(0.7, 0.0025, 0.45);//(0.0, 0.003, 0.45)
+        }else{
+        Robot.driveSubsystem.driveStraightJevois(0.5, 0.0025, 0.45);
+        }
     }else{
       Robot.driveSubsystem.teleopDrive(.7*move, turn);
     }
   }
-
+{}
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {

@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 public class TeleopDriveCommand extends Command {
@@ -26,8 +27,10 @@ public class TeleopDriveCommand extends Command {
   @Override
   protected void execute() {
     double move = -Robot.oi.driveStick.getY();
-    double turn = Robot.oi.driveStick.getTwist();
+    double turn = Robot.oi.driveStick.getX();
     Robot.driveSubsystem.teleopDrive(move, turn);
+    SmartDashboard.putNumber("Turn Value", turn);
+    SmartDashboard.putNumber("Drive Value", move);
   }
 
   // Make this return true when this Command no longer needs to run execute()

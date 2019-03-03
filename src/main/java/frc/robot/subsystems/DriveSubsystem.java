@@ -48,7 +48,7 @@ public class DriveSubsystem extends Subsystem {
   }
 
   public void teleopDrive(double move, double turn) {
-    drive.arcadeDrive(move, 0.7*turn);
+    drive.arcadeDrive(move, turn);
   }
 
   public double getDistance(){
@@ -56,8 +56,12 @@ public class DriveSubsystem extends Subsystem {
     return ut.getRangeInches();
   }
 
-  public void driveStraightJevois(double power, double kP) {
-    double turningValue = (xTargetSetpoint - Robot.jSubsystem.getTgtX()) * -kP;
+  public void driveStraightJevois(double power, double kP, double kF) {
+    double targetError = (xTargetSetpoint - Robot.jSubsystem.getTgtX());
+    kF = Math.copySign(kF,targetError);
+    double turningValue = targetError * -kP - kF;
+    
+    
     // Invert the direction of the turn if we are going backwards
     //turningValue = Math.copySign(turningValue, power);
     //if (power<0) {
